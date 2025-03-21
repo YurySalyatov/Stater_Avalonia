@@ -17,6 +17,7 @@ public class UnionStater
     {
         // TODO
         // unionStateMachine = ...
+        unionStateMachine = new StateMachine();
     }
 
     public void TranslateToLTLLogic()
