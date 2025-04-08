@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Stater.Views.Editors.VariableEditor"
+             xmlns:vm="using:Stater.ViewModels.Editors"
+             x:DataType="vm:VariableEditorViewModel">
+    <StackPanel>
+        <TextBlock Margin="0 5">Name:</TextBlock>
+        <TextBox
+            Watermark="Enter variable name" Text="{Binding Name}" 
+            SelectionStart="{Binding StartSelectedPosName}"
+            SelectionEnd="{Binding EndSelectedPosName}"/>
+
+        <TextBlock Margin="0 5">Start value:</TextBlock>
+        <TextBox
+            Watermark="Enter variable start value" Text="{Binding Value}" />
+        <Button Margin="0 15 0 5 " Command="{Binding SaveCommand}">Save</Button>
+    </StackPanel>
+</UserControl>

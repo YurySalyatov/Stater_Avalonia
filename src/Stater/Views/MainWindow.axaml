@@ -1,0 +1,105 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Stater.ViewModels"
+        xmlns:editors="using:Stater.Views.Editors"
+        xmlns:board="using:Stater.Views.Board"
+        xmlns:execution="using:Stater.Views.Execution"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Stater.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Stater">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel />a
+    </Design.DataContext>
+    <DockPanel Background="#383838">
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                DockPanel.Dock="Top">
+            <Menu Height="32">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New Project" Command="{Binding NewCommand}" />
+                    <MenuItem Header="_Open" Click="OpenFileButton_Clicked" />
+                    <MenuItem Header="_Save" Click="SaveFileButton_Clicked" />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Undo" Command="{Binding UndoCommand}" HotKey="{OnPlatform Ctrl+Z, macOS=⌘+z}" />
+                    <MenuItem Header="_Redo" Command="{Binding RedoCommand}" HotKey="Ctrl+Shift+Z" />
+                    <!-- <MenuItem Header="_Cut" /> -->
+                    <!-- <MenuItem Header="_Copy" /> -->
+                    <!-- <MenuItem Header="_Paste" /> -->
+                </MenuItem>
+                <MenuItem Header="_Project">
+                    <MenuItem Header="_New StateMachine" Command="{Binding NewStateMachineCommand}" />
+                    <MenuItem Header="_New State" Command="{Binding NewStateCommand}" />
+                    <MenuItem Header="_ReBuildGraph" Command="{Binding ReBuildGraphCommand}" />
+                    <MenuItem Header="_ShowFind" IsVisible="{Binding !IsVisibleFindLine}"
+                              Command="{Binding ShowFindCommand}" />
+                    <MenuItem Header="_HideFind" IsVisible="{Binding IsVisibleFindLine}"
+                              Command="{Binding HideFindCommand}" />
+                    <!-- <MenuItem Header="_AnalyzeGraph" Command="{Binding SimpleAnalyzeGraphCommand}"/> -->
+                    <MenuItem Header="_AnalyzeGraph Off" IsVisible="{Binding !IsAnalyze}"
+                              Command="{Binding ActiveAnalyzeCommand}" />
+                    <MenuItem Header="_AnalyzeGraph On" IsVisible="{Binding IsAnalyze}"
+                              Command="{Binding DisableAnalyzeCommand}" />
+                </MenuItem>
+                <MenuItem Header="_Plugins">
+                    <ItemsControl ItemsSource="{Binding Plugins}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <MenuItem Header="{Binding Name}" Click="MenuItem_OnClick" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </MenuItem>
+                <MenuItem Header="_Control View">
+                    <MenuItem Header="_Up" Command="{Binding UpCommand}" HotKey="W"/>
+                    <MenuItem Header="_Down" Command="{Binding DownCommand}" HotKey="S"/>
+                    <MenuItem Header="_Left" Command="{Binding LeftCommand}" HotKey="A"/>
+                    <MenuItem Header="_Right" Command="{Binding RightCommand}" HotKey="D"/>
+                </MenuItem>
+            </Menu>
+        </Border>
+
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                DockPanel.Dock="Bottom">
+            <execution:ExecutionGroup Height="300" />
+        </Border>
+
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                DockPanel.Dock="Left"
+                Width="200">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Text="{Binding Project.Name}" />
+                    <ListBox ItemsSource="{Binding StateMachines}"
+                             SelectedItem="{Binding StateMachine}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                DockPanel.Dock="Right"
+                Padding="10"
+                Width="400">
+            <editors:MainEditor />
+        </Border>
+
+        <board:BoardCanvas />
+    </DockPanel>
+</Window>

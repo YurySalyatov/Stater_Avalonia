@@ -1,0 +1,59 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="*"
+             x:Class="Stater.Views.FindLine.FindLine"
+             xmlns:fl="using:Stater.ViewModels.FindLine"
+             x:DataType="fl:FindLineViewModel">
+    <!-- Styles="{StaticResource }" -->
+    <Grid>
+        <Grid ColumnDefinitions="200,170, 40, *" IsVisible="{Binding IsVisible}" Background="Gray"
+              RowDefinitions="30, *">
+            <TextBox x:Name="SearchBox"
+                     Grid.Column="0"
+                     Grid.Row="0"
+                     Height="25"
+                     Width="200"
+                     Background="White"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                <Button Background="White" IsVisible="{Binding !IsVisibleReplace}"
+                        Command="{Binding ChangeReplaceCommand}">
+                    ▼
+                </Button>
+                <Button Background="White" IsVisible="{Binding IsVisibleReplace}"
+                        Command="{Binding ChangeReplaceCommand}">
+                    ▲
+                </Button>
+                <Button Background="White" Command="{Binding SearchCommand}">Search</Button>
+                <Button Background="White" Command="{Binding PrevCommand}">◄</Button>
+                <Button Background="White" Command="{Binding NextCommand}">►</Button>
+            </StackPanel>
+            <TextBlock Grid.Column="2" Grid.Row="0" Margin="5, 5, 0, 0">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}/{1}">
+                        <Binding Path="SearchPos" />
+                        <Binding Path="AllPos" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Button Grid.Row="0" Grid.Column="3" Background="White" Command="{Binding CloseFindLineCommand}">×</Button>
+            <TextBox x:Name="ReplaceBox"
+                     Grid.Column="0"
+                     Grid.Row="1"
+                     Height="25"
+                     Width="200"
+                     Background="White"
+                     Text="{Binding ReplaceText, UpdateSourceTrigger=PropertyChanged}"
+                     IsVisible="{Binding IsVisibleReplace}" />
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" IsVisible="{Binding IsVisibleReplace}">
+                <Button Background="White" Command="{Binding ReplaceCurrentCommand}">Replace</Button>
+                <Button Background="White" Command="{Binding ReplaceAllCommand}">Replace All</Button>
+            </StackPanel>
+        </Grid>
+        <Grid IsVisible="{Binding !IsVisible}">
+            <TextBlock Background="Gray" />
+        </Grid>
+    </Grid>
+</UserControl>

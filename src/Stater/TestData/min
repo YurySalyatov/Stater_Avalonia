@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExportProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Project name="New Project" />
+  <StateMachines>
+    <Guid>3a2653f0-c0cc-4a17-8b4a-c48ec1c90eb6</Guid>
+    <Name>StateMachine 0</Name>
+    <States>
+      <State>
+        <Guid>3ae1f825-65a4-487c-bb13-0c929579166f</Guid>
+        <Name>Start</Name>
+        <Description />
+        <Type>Start</Type>
+        <X>10.269531</X>
+        <Y>10.5390625</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>0dc5b654-d428-4bf7-b353-222845123f5d</Guid>
+        <Name>Min</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>10</X>
+        <Y>92.556076</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>acdb44a9-c58d-4f5d-b2da-cb7ff26da63d</Guid>
+        <Name>Check</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>266.55078</X>
+        <Y>94.616295</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>86aa9a4c-4dce-482e-a191-f268609e45d6</Guid>
+        <Name>End</Name>
+        <Description />
+        <Type>End</Type>
+        <X>272.0586</X>
+        <Y>171.8017</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>2f112f90-424f-4cdc-a907-0a39a6d61f3b</Guid>
+        <Name>Pass</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>125.096</X>
+        <Y>174.51524</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+    </States>
+    <Transitions>
+      <Transition>
+        <Guid>ec5ebf48-25fd-4212-a2f7-c193c086243f</Guid>
+        <Name>toPass</Name>
+        <Start>acdb44a9-c58d-4f5d-b2da-cb7ff26da63d</Start>
+        <End>2f112f90-424f-4cdc-a907-0a39a6d61f3b</End>
+        <Condition xsi:type="VariableCondition">
+          <VariableGuid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</VariableGuid>
+          <ConditionType>Ne</ConditionType>
+          <Value xsi:type="FloatVariable">
+            <Value>5</Value>
+          </Value>
+        </Condition>
+      </Transition>
+      <Transition>
+        <Guid>1127c9fe-6ab3-4646-b518-289f9fd5c47c</Guid>
+        <Name>toEnd</Name>
+        <Start>acdb44a9-c58d-4f5d-b2da-cb7ff26da63d</Start>
+        <End>86aa9a4c-4dce-482e-a191-f268609e45d6</End>
+        <Condition xsi:type="VariableCondition">
+          <VariableGuid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</VariableGuid>
+          <ConditionType>Eq</ConditionType>
+          <Value xsi:type="FloatVariable">
+            <Value>5</Value>
+          </Value>
+        </Condition>
+      </Transition>
+      <Transition>
+        <Guid>b3a75179-b49e-4a60-b436-3e8cce241080</Guid>
+        <Name>State</Name>
+        <Start>2f112f90-424f-4cdc-a907-0a39a6d61f3b</Start>
+        <End>0dc5b654-d428-4bf7-b353-222845123f5d</End>
+        <Condition xsi:type="VariableCondition">
+          <VariableGuid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</VariableGuid>
+          <ConditionType>Gt</ConditionType>
+          <Value xsi:type="FloatVariable">
+            <Value>0</Value>
+          </Value>
+        </Condition>
+      </Transition>
+      <Transition>
+        <Guid>80e06dae-26ba-4f61-8d50-431c9d857021</Guid>
+        <Name>State</Name>
+        <Start>3ae1f825-65a4-487c-bb13-0c929579166f</Start>
+        <End>0dc5b654-d428-4bf7-b353-222845123f5d</End>
+        <Condition xsi:type="VariableCondition">
+          <VariableGuid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</VariableGuid>
+          <ConditionType>Gt</ConditionType>
+          <Value xsi:type="FloatVariable">
+            <Value>0</Value>
+          </Value>
+        </Condition>
+      </Transition>
+      <Transition>
+        <Guid>64cf3119-8cb3-4517-a265-60ea893839bf</Guid>
+        <Name>State</Name>
+        <Start>0dc5b654-d428-4bf7-b353-222845123f5d</Start>
+        <End>acdb44a9-c58d-4f5d-b2da-cb7ff26da63d</End>
+        <Condition xsi:type="VariableCondition">
+          <VariableGuid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</VariableGuid>
+          <ConditionType>Gt</ConditionType>
+          <Value xsi:type="FloatVariable">
+            <Value>0</Value>
+          </Value>
+        </Condition>
+        <Event xsi:type="VariableMath">
+          <VariableGuid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</VariableGuid>
+          <MathType>Sub</MathType>
+          <Value xsi:type="FloatVariable">
+            <Value>1</Value>
+          </Value>
+        </Event>
+      </Transition>
+    </Transitions>
+    <Variables>
+      <Variable>
+        <Guid>e5680cf9-cc87-4ff7-bff9-a3ef53e63c6e</Guid>
+        <Name>A</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>10</Value>
+        </StartValue>
+      </Variable>
+    </Variables>
+  </StateMachines>
+  <StateMachines>
+    <Guid>a931e318-d982-4b1c-b4fc-dc728315b529</Guid>
+    <Name>StateMachine 1</Name>
+    <States>
+      <State>
+        <Guid>1f31bc1e-5e80-45ed-bd89-c728dee52eef</Guid>
+        <Name>A</Name>
+        <Description />
+        <Type>Start</Type>
+        <X>9.797979</X>
+        <Y>67.99305</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>930650f2-3138-48dc-aa0f-9d9363685bca</Guid>
+        <Name>B</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>273.92557</X>
+        <Y>72.72873</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>a1b24ba1-7923-44c7-b55f-a297ebd43cd9</Guid>
+        <Name>C</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>155.5467</X>
+        <Y>148.72523</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+    </States>
+    <Transitions>
+      <Transition>
+        <Guid>e858522a-e32f-4fac-b76e-8475823d6225</Guid>
+        <Name>State</Name>
+        <Start>930650f2-3138-48dc-aa0f-9d9363685bca</Start>
+        <End>a1b24ba1-7923-44c7-b55f-a297ebd43cd9</End>
+      </Transition>
+      <Transition>
+        <Guid>5222825d-d8a1-4a8d-9e77-a4b28958c33a</Guid>
+        <Name>State</Name>
+        <Start>a1b24ba1-7923-44c7-b55f-a297ebd43cd9</Start>
+        <End>1f31bc1e-5e80-45ed-bd89-c728dee52eef</End>
+      </Transition>
+      <Transition>
+        <Guid>d3ba65a7-894f-4a32-8ea2-8018d24b0119</Guid>
+        <Name>toB</Name>
+        <Start>1f31bc1e-5e80-45ed-bd89-c728dee52eef</Start>
+        <End>930650f2-3138-48dc-aa0f-9d9363685bca</End>
+        <Condition xsi:type="VariableCondition">
+          <VariableGuid>5f805493-8c5e-41ae-b16a-5f29da473d2c</VariableGuid>
+          <ConditionType>Eq</ConditionType>
+          <Value xsi:type="FloatVariable">
+            <Value>1</Value>
+          </Value>
+        </Condition>
+      </Transition>
+    </Transitions>
+    <Variables>
+      <Variable>
+        <Guid>5f805493-8c5e-41ae-b16a-5f29da473d2c</Guid>
+        <Name>A</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+    </Variables>
+  </StateMachines>
+  <StateMachines>
+    <Guid>9938e855-fa6e-4222-9f15-da4b9d491b0c</Guid>
+    <Name>BR_GATES_CH</Name>
+    <States>
+      <State>
+        <Guid>00000061-0000-0000-0000-000000000000</Guid>
+        <Name>G0_G1</Name>
+        <Description />
+        <Type>Start</Type>
+        <X>20.0875</X>
+        <Y>77.985</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000086-0000-0000-0000-000000000000</Guid>
+        <Name>G2_G3</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>20.0875</X>
+        <Y>410.485</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000080-0000-0000-0000-000000000000</Guid>
+        <Name>B1</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>28.8575</X>
+        <Y>430.72</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>0000007a-0000-0000-0000-000000000000</Guid>
+        <Name>OFF
+en: BxG2 = 0;...
+BxG3 = 1;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>108.8575</X>
+        <Y>439.58</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>0000007f-0000-0000-0000-000000000000</Guid>
+        <Name>dt
+BxG3 = 0;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>38.5475</X>
+        <Y>539.785</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000084-0000-0000-0000-000000000000</Guid>
+        <Name>dt1
+en: BxG2 = 0;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>180.7175</X>
+        <Y>539.785</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000083-0000-0000-0000-000000000000</Guid>
+        <Name>ON
+en: BxG2 = 1;...
+BxG3 = 0;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>108.8575</X>
+        <Y>645.925</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000081-0000-0000-0000-000000000000</Guid>
+        <Name>tri_state
+en: BxG2 = 0;...
+BxG3 = 0;
+</Name>
+        <Description />
+        <Type>End</Type>
+        <X>347.3725</X>
+        <Y>537.44</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000068-0000-0000-0000-000000000000</Guid>
+        <Name>OFF
+en: BxG0 = 0;...
+BxG1 = 1;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>179.98236</X>
+        <Y>50.160686</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000072-0000-0000-0000-000000000000</Guid>
+        <Name>dt1
+en: BxG0 = 0;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>228.45139</X>
+        <Y>163.88199</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000069-0000-0000-0000-000000000000</Guid>
+        <Name>dt
+en: BxG1 = 0;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>30.665432</X>
+        <Y>197.26773</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>0000006a-0000-0000-0000-000000000000</Guid>
+        <Name>ON
+en: BxG0 = 1;...
+BxG1 = 0;</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>110.0875</X>
+        <Y>301.97647</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>00000076-0000-0000-0000-000000000000</Guid>
+        <Name>B1</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>30.0875</X>
+        <Y>136.94293</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+      <State>
+        <Guid>0000006c-0000-0000-0000-000000000000</Guid>
+        <Name>tri_state
+en: BxG0 = 0;...
+BxG1 = 0;
+</Name>
+        <Description />
+        <Type>Common</Type>
+        <X>264.84747</X>
+        <Y>248.10228</Y>
+        <EntryEvents />
+        <ExitEvents />
+      </State>
+    </States>
+    <Transitions>
+      <Transition>
+        <Guid>0000006f-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 2 || ... 
+BRx == 3]</Name>
+        <Start>0000006c-0000-0000-0000-000000000000</Start>
+        <End>00000068-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000077-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 0]</Name>
+        <Start>00000076-0000-0000-0000-000000000000</Start>
+        <End>0000006c-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>0000006e-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 1 || ... 
+BRx == 4]</Name>
+        <Start>0000006c-0000-0000-0000-000000000000</Start>
+        <End>0000006a-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000070-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 1 || ... 
+BRx == 4]</Name>
+        <Start>00000068-0000-0000-0000-000000000000</Start>
+        <End>00000069-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000074-0000-0000-0000-000000000000</Guid>
+        <Name>[after(dt,tick)]</Name>
+        <Start>00000072-0000-0000-0000-000000000000</Start>
+        <End>00000068-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000071-0000-0000-0000-000000000000</Guid>
+        <Name>[after(dt,tick)]</Name>
+        <Start>00000069-0000-0000-0000-000000000000</Start>
+        <End>0000006a-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000073-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 2 || ... 
+BRx == 3]</Name>
+        <Start>0000006a-0000-0000-0000-000000000000</Start>
+        <End>00000072-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000079-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 1 || ... 
+BRx == 2]</Name>
+        <Start>00000081-0000-0000-0000-000000000000</Start>
+        <End>0000007a-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000082-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 0]</Name>
+        <Start>00000080-0000-0000-0000-000000000000</Start>
+        <End>00000081-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000078-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 3 || ... 
+BRx == 4]</Name>
+        <Start>00000081-0000-0000-0000-000000000000</Start>
+        <End>00000083-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>0000007c-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 3 || ... 
+BRx == 4]</Name>
+        <Start>0000007a-0000-0000-0000-000000000000</Start>
+        <End>0000007f-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>0000007d-0000-0000-0000-000000000000</Guid>
+        <Name>[after(dt,tick)]</Name>
+        <Start>00000084-0000-0000-0000-000000000000</Start>
+        <End>0000007a-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>0000007b-0000-0000-0000-000000000000</Guid>
+        <Name>[after(dt,tick)]</Name>
+        <Start>0000007f-0000-0000-0000-000000000000</Start>
+        <End>00000083-0000-0000-0000-000000000000</End>
+      </Transition>
+      <Transition>
+        <Guid>00000085-0000-0000-0000-000000000000</Guid>
+        <Name>[BRx == 1 || ... 
+BRx == 2]</Name>
+        <Start>00000083-0000-0000-0000-000000000000</Start>
+        <End>00000084-0000-0000-0000-000000000000</End>
+      </Transition>
+    </Transitions>
+    <Variables>
+      <Variable>
+        <Guid>a8643d72-a8cf-4630-a859-739c975bc40c</Guid>
+        <Name>BRx</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+      <Variable>
+        <Guid>c634e3f8-75b4-40f9-b8e1-1fbe167edda9</Guid>
+        <Name>BxG0</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+      <Variable>
+        <Guid>e6a69bb2-2ad0-4b0c-85c0-1fa7d7ccccf5</Guid>
+        <Name>BxG1</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+      <Variable>
+        <Guid>e04d08ad-341d-42f3-b9c8-f09ce325d8c1</Guid>
+        <Name>BxG2</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+      <Variable>
+        <Guid>01ff732c-4d5a-4db9-9852-cae6eb2f8a71</Guid>
+        <Name>BxG3</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+      <Variable>
+        <Guid>204d00a4-17b0-4799-88e1-e66470ea1f93</Guid>
+        <Name>dt</Name>
+        <StartValue xsi:type="FloatVariable">
+          <Value>0</Value>
+        </StartValue>
+      </Variable>
+    </Variables>
+  </StateMachines>
+</ExportProject>

@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Stater.ViewModels.Execution"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:VariablesViewModel"
+             x:Class="Stater.Views.Execution.Variables">
+    <ScrollViewer>
+        <StackPanel>
+            <TextBlock>Variables:</TextBlock>
+            <ListBox ItemsSource="{Binding Variables}"
+                     SelectedItem="{Binding Variable}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="=" />
+                            <TextBlock Text="{Binding StartValue}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Command="{Binding CreateVariableCommand}">Create</Button>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

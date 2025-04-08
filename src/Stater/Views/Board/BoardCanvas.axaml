@@ -1,0 +1,175 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+             x:Class="Stater.Views.Board.BoardCanvas"
+             xmlns:vm="using:Stater.ViewModels.Board"
+             x:DataType="vm:BoardCanvasViewModel"
+             xmlns:models="clr-namespace:Stater.Models"
+             xmlns:findLine="clr-namespace:Stater.Views.FindLine"
+             xmlns:figures="clr-namespace:Stater.Models.Draw"
+             x:Name="RootWindow"
+             >
+    <DockPanel HorizontalAlignment="Stretch" Name="TheCanvasPanel" Background="White"
+               PointerWheelChanged="InputElement_OnPointerWheelChanged"
+               PointerPressed="InputElement_OnPointerPressed"
+               PointerMoved="InputElement_OnPointerMoved"
+               PointerReleased="InputElement_OnPointerReleased">
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="450,*">
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Background="Gray" Text="{Binding StateMachine.Name}"/>
+                <TextBlock Background="Gray" Text="{Binding StateMachine.States.Count}"/>
+                <TextBlock Background="Gray" Text="{Binding StateMachine.Transitions.Count}"/>
+                <TextBlock Background="Gray"
+                    IsVisible="{Binding IsAnalyze}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{} Reachable end states {0}/{1}">
+                            <Binding Path="ReachableEndStates" />
+                            <Binding Path="AllEndStates" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Background="Gray"
+                    IsVisible="{Binding !IsAnalyze}"
+                    Text="Analyze Off"/>
+            </StackPanel>
+            
+            <findLine:FindLine Grid.Column="1"/>
+        </Grid>
+        
+
+        <Canvas Height="{Binding Height}" Width="{Binding Width}" Name="TheCanvas">
+            <ItemsControl ItemsSource="{Binding StateMachine.States}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Height="{Binding Height}" Width="{Binding Width}" Name="StatesCanvas" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerTheme>
+                    <ControlTheme x:DataType="models:State" TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Left}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Bottom}" />
+                        <Setter Property="Canvas.Width" Value="{Binding Width}" />
+                        <Setter Property="Canvas.Height" Value="{Binding Height}" />
+                    </ControlTheme>
+                </ItemsControl.ItemContainerTheme>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{Binding Color}"
+                                BorderThickness="1"
+                                Padding="10"
+                                PointerPressed="State_OnPointerPressed"
+                                PointerMoved="State_OnPointerMoved"
+                                PointerReleased="State_OnPointerReleased"
+                                TextElement.Foreground="Black"
+                                Background="Bisque">
+                            <TextBlock Text="{Binding Name}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding Transitions}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Height="{Binding Height}" Width="{Binding Width}" Name="TransitionsCanvas" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type models:AssociateTransition}">
+                        <Canvas PointerPressed="Transition_OnPointerPressed">
+                            <Path Stroke="{Binding Color}" StrokeThickness="2">
+                                <Path.Data>
+                                    <GeometryGroup>
+                                        <PathGeometry>
+                                            <PathFigure IsClosed="False" StartPoint="{Binding StartPoint}">
+                                                <PolyLineSegment Points="{Binding DrawLinePoints}"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="{Binding EndPoint}">
+                                                <LineSegment Point="{Binding LeftArrowPoint}"></LineSegment>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="{Binding EndPoint}">
+                                                <LineSegment Point="{Binding RightArrowPoint}"></LineSegment>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </GeometryGroup>
+                                </Path.Data>
+                            </Path>
+                            <AdornerLayer>
+                                <TextBlock Text="{Binding Name}"
+                                           Canvas.Left="{Binding Left}"
+                                           Canvas.Top="{Binding Top}"
+                                           Background="White"/>
+                            </AdornerLayer>
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+            </ItemsControl>
+            <ItemsControl ItemsSource="{Binding StartPointsFigure}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Height="{Binding Height}" Width="{Binding Width}" Name="CirclesCanvas" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type figures:CircleFigure}">
+                        <Canvas>
+                            <Ellipse Width="{Binding Width}" Height="{Binding Height}" 
+                                     Fill="{Binding Color}" Stroke="{Binding Color}" 
+                                     StrokeThickness="2"
+                                     Canvas.Left="{Binding Left}" 
+                                     Canvas.Top="{Binding Top}" />
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+            </ItemsControl>
+            <ItemsControl ItemsSource="{Binding EndPointsFigure}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Height="{Binding Height}" Width="{Binding Width}" Name="SquaresCanvas" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type figures:SquareFigure}">
+                        <Canvas>
+                            <Rectangle Width="{Binding Width}" Height="{Binding Height}" 
+                                     Fill="{Binding Color}" Stroke="{Binding Color}" 
+                                     StrokeThickness="2"
+                                     Canvas.Left="{Binding Left}" 
+                                     Canvas.Top="{Binding Top}" />
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+            </ItemsControl>
+            <ItemsControl ItemsSource="{Binding LinePointsFigure}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Height="{Binding Height}" Width="{Binding Width}" Name="TransitionPointsCanvas" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type figures:CircleFigure}">
+                        <Canvas>
+                            <Ellipse Width="{Binding Width}" Height="{Binding Height}" 
+                                     Fill="{Binding Color}" Stroke="{Binding Color}" 
+                                     StrokeThickness="2"
+                                     PointerPressed="Point_OnPointerPressed"
+                                     PointerMoved="Point_OnPointerMoved"
+                                     PointerReleased="Point_OnPointerReleased"
+                                     Canvas.Left="{Binding Left}" 
+                                     Canvas.Top="{Binding Top}" />
+                        </Canvas>
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+            </ItemsControl>
+        </Canvas>
+    </DockPanel>
+</UserControl>

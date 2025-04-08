@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Stater.Views.Execution.ExecutionControl"
+             xmlns:vm="using:Stater.ViewModels.Execution"
+             x:DataType="vm:ExecutionControlViewModel">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock>Step Time: </TextBlock>
+            <TextBox Text="{Binding StepTime}" />
+            <Button Command="{Binding StartCommand}">Start</Button>
+            <Button Command="{Binding StopCommand}">Stop</Button>
+            <Button Command="{Binding ResetCommand}">Reset</Button>
+            <Button Command="{Binding StepCommand}">Step</Button>
+            <Button Command="{Binding ClearCommand}">Clear</Button>
+        </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Right">
+            <ScrollViewer MaxHeight="250">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding Logs}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Padding="5">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding ExecuteLogStatus}" />
+                                        <TextBlock>-</TextBlock>
+                                        <TextBlock Text="{Binding Text}" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </StackPanel>
+</UserControl>

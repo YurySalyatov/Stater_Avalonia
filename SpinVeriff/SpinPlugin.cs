@@ -10,6 +10,9 @@ using StaterV.Attributes;
 using StaterV.PluginManager;
 using StaterV.StateMachine;
 
+// TODO: practice NEED
+
+
 namespace SpinVeriff
 {
     public class SpinPlugin : ButtonPlugin

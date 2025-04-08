@@ -1,0 +1,95 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Stater.ViewModels.Editors"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Stater.Views.Editors.StateEditor"
+             x:DataType="vm:StateEditorViewModel">
+    <TabControl Margin="5">
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontSize="16" Padding="0" Margin="0" VerticalAlignment="Center">Data</TextBlock>
+            </TabItem.Header>
+            <StackPanel>
+                <TextBlock Margin="0 5">Name:</TextBlock>
+                <TextBox
+                    Watermark="Enter state name"
+                    Text="{Binding Name}" 
+                    SelectionStart="{Binding StartSelectedPosName}"
+                    SelectionEnd="{Binding EndSelectedPosName}"
+                    />
+                <TextBlock Margin="0 15 0 5">Description:</TextBlock>
+                <TextBox Height="50" AcceptsReturn="True" TextWrapping="Wrap"
+                         Text="{Binding Description}"
+                         SelectionEnd="{Binding EndSelectedPosDescription}"
+                         SelectionStart="{Binding StartSelectedPosDescription}"/>
+                <TextBlock Margin="0 15 0 5">Type:</TextBlock>
+                <ComboBox SelectedIndex="{Binding TypeIndex}" MaxDropDownHeight="100">
+                    <ComboBoxItem>Common</ComboBoxItem>
+                    <ComboBoxItem>Start</ComboBoxItem>
+                    <ComboBoxItem>End</ComboBoxItem>
+                </ComboBox>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="0 15 0 5 " Command="{Binding SaveCommand}">Save</Button>
+                    <Button Margin="0 15 0 5 " Command="{Binding RemoveCommand}">Remove</Button>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontSize="16" Padding="0" Margin="0" VerticalAlignment="Center">Transitions</TextBlock>
+            </TabItem.Header>
+            <ScrollViewer MaxHeight="500">
+                <ItemsControl ItemsSource="{Binding Transitions}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="-" FontSize="20" />
+                                    <TextBlock Text="{Binding Start.Name}"></TextBlock>
+                                    <TextBlock Text="->" FontSize="20" />
+                                    <TextBlock Text="{Binding End.Name}"></TextBlock>
+                                    <Button Click="Button_OnClick">-</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem>
+            <TabItem.Header>
+                <TextBlock FontSize="16" Padding="0" Margin="0" VerticalAlignment="Center">Add transition</TextBlock>
+            </TabItem.Header>
+            <ScrollViewer MaxHeight="500">
+                <ItemsControl ItemsSource="{Binding AllStates}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Command="{Binding $parent[ItemsControl].((vm:StateEditorViewModel)DataContext).AddTransitionCommand}"
+                                CommandParameter="{Binding }" Width="200">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="+" />
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</UserControl>
